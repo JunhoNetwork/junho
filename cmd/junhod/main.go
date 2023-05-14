@@ -5,9 +5,9 @@ import (
 
 	"github.com/cosmos/cosmos-sdk/server"
 	svrcmd "github.com/cosmos/cosmos-sdk/server/cmd"
-	"github.com/notional-labs/nursery/cmd/nurseryd/cmd"
+	"github.com/JunhoNetwork/junho/cmd/junhod/cmd"
 
-	"github.com/notional-labs/nursery/app"
+	"github.com/JunhoNetwork/junho/app"
 )
 
 func main() {

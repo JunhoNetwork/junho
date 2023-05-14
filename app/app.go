@@ -162,8 +162,8 @@ const (
 
 // We pull these out so we can set them with LDFLAGS in the Makefile
 var (
-	NodeDir      = ".nurseryd"
-	Bech32Prefix = "nursery"
+	NodeDir      = ".junhod"
+	Bech32Prefix = "junho"
 
 	// If EnabledSpecificProposals is "", and this is "true", then enable all x/wasm proposals.
 	// If EnabledSpecificProposals is "", and this is not "true", then disable all x/wasm proposals.

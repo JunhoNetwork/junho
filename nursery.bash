@@ -13,15 +13,15 @@ if [[ ! "$new_project_name" =~ ^[a-z]+$ ]]; then
   exit 1
 fi
 
-# Clone the nursery repository into a folder with the name of the new project
-git clone https://github.com/notional-labs/nursery.git "$new_project_name"
+# Clone the junho repository into a folder with the name of the new project
+git clone https://github.com/JunhoNetwork/junho.git "$new_project_name"
 
-# Change every instance of the word "nursery" in the new repository into the name of the new project
+# Change every instance of the word "junho" in the new repository into the name of the new project
 cd "$new_project_name" || exit
-find . -type f -exec sed -i "" "s/nursery/$new_project_name/g" {} +
+find . -type f -exec sed -i "" "s/junho/$new_project_name/g" {} +
 
-# Move cmd/nurseryd to cmd/$new_project_name
-mv cmd/nurseryd cmd/"$new_project_name"
+# Move cmd/junhod to cmd/$new_project_name
+mv cmd/junhod cmd/"$new_project_name"
 
 # Run gh repo fork --fork-name $new_project_name --remote from inside the new project's folder
 gh repo fork --fork-name "$new_project_name" --remote

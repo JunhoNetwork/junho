@@ -1,4 +1,4 @@
-module github.com/notional-labs/nursery
+module github.com/JunhoNetwork/junho
 
 go 1.20
 

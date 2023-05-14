@@ -35,7 +35,7 @@ import (
 	"github.com/cosmos/cosmos-sdk/x/genutil"
 	genutiltypes "github.com/cosmos/cosmos-sdk/x/genutil/types"
 	stakingtypes "github.com/cosmos/cosmos-sdk/x/staking/types"
-	"github.com/notional-labs/nursery/app"
+	"github.com/JunhoNetwork/junho/app"
 )
 
 var (
