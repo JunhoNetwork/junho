@@ -3,9 +3,9 @@ package main
 import (
 	"os"
 
+	"github.com/JunhoNetwork/junho/cmd/junhod/cmd"
 	"github.com/cosmos/cosmos-sdk/server"
 	svrcmd "github.com/cosmos/cosmos-sdk/server/cmd"
-	"github.com/JunhoNetwork/junho/cmd/junhod/cmd"
 
 	"github.com/JunhoNetwork/junho/app"
 )
