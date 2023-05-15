@@ -18,6 +18,7 @@ import (
 
 	"cosmossdk.io/math"
 
+	"github.com/JunhoNetwork/junho/app"
 	"github.com/cosmos/cosmos-sdk/client"
 	"github.com/cosmos/cosmos-sdk/client/flags"
 	"github.com/cosmos/cosmos-sdk/client/tx"
@@ -35,7 +36,6 @@ import (
 	"github.com/cosmos/cosmos-sdk/x/genutil"
 	genutiltypes "github.com/cosmos/cosmos-sdk/x/genutil/types"
 	stakingtypes "github.com/cosmos/cosmos-sdk/x/staking/types"
-	"github.com/JunhoNetwork/junho/app"
 )
 
 var (
