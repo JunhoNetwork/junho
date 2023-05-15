@@ -3,9 +3,10 @@ package mint_test
 import (
 	"testing"
 
-	"github.com/stretchr/testify/require"
 	abcitypes "github.com/cometbft/cometbft/abci/types"
 	tmproto "github.com/cometbft/cometbft/proto/tendermint/types"
+	"github.com/cosmos/cosmos-sdk/testutil/configurator"
+	"github.com/stretchr/testify/require"
 
 	"github.com/JunhoNetwork/junho/x/mint/types"
 	simtestutil "github.com/cosmos/cosmos-sdk/testutil/sims"
@@ -13,7 +14,18 @@ import (
 )
 
 func TestItCreatesModuleAccountOnInitBlock(t *testing.T) {
-	app := simtestutil.Setup({}, false)
+	app, _ := simtestutil.Setup(
+		configurator.NewAppConfig(
+			configurator.ParamsModule(),
+			configurator.AuthModule(),
+			configurator.StakingModule(),
+			configurator.SlashingModule(),
+			configurator.TxModule(),
+			configurator.ConsensusModule(),
+			configurator.BankModule(),
+		),
+		false,
+	)
 	ctx := app.BaseApp.NewContext(false, tmproto.Header{})
 
 	app.InitChain(
