@@ -128,9 +128,9 @@ func (am AppModule) NewHandler() sdk.Handler {
 }
 
 // Route returns the fees module's message routing key.
-func (am AppModule) Route() sdk.Route {
-	return sdk.NewRoute(types.RouterKey, am.NewHandler())
-}
+// func (am AppModule) Route() sdk.Route {
+// 	return sdk.NewRoute(types.RouterKey, am.NewHandler())
+// }
 
 // QuerierRoute returns the claim module's query routing key.
 func (am AppModule) QuerierRoute() string {
@@ -138,9 +138,9 @@ func (am AppModule) QuerierRoute() string {
 }
 
 // LegacyQuerierHandler returns the claim module's Querier.
-func (am AppModule) LegacyQuerierHandler(_ *codec.LegacyAmino) sdk.Querier {
-	return nil
-}
+// func (am AppModule) LegacyQuerierHandler(_ *codec.LegacyAmino) sdk.Querier {
+// 	return nil
+// }
 
 // RegisterServices registers a GRPC query service to respond to the
 // module-specific GRPC queries.
@@ -184,13 +184,13 @@ func (am AppModule) GenerateGenesisState(_ *module.SimulationState) {
 }
 
 // ProposalContents returns content functions for governance proposals.
-func (am AppModule) ProposalContents(_ module.SimulationState) []simtypes.WeightedProposalContent {
-	return []simtypes.WeightedProposalContent{}
+func (am AppModule) ProposalContents(_ module.SimulationState) []simtypes.WeightedProposalMsg {
+	return []simtypes.WeightedProposalMsg{}
 }
 
 // RandomizedParams creates randomized fees param changes for the simulator.
-func (am AppModule) RandomizedParams(_ *rand.Rand) []simtypes.ParamChange {
-	return []simtypes.ParamChange{}
+func (am AppModule) RandomizedParams(_ *rand.Rand) []simtypes.LegacyParamChange {
+	return []simtypes.LegacyParamChange{}
 }
 
 // RegisterStoreDecoder registers a decoder for fees module's types.

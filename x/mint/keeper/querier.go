@@ -1,32 +1,29 @@
 package keeper
 
 import (
-	abci "github.com/cometbft/cometbft/abci/types"
-
-	"github.com/JunhoNetwork/junho/x/mint/types"
 	"github.com/cosmos/cosmos-sdk/codec"
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	sdkerrors "github.com/cosmos/cosmos-sdk/types/errors"
 )
 
 // NewQuerier returns a minting Querier handler.
-func NewQuerier(k Keeper, legacyQuerierCdc *codec.LegacyAmino) sdk.Querier {
-	return func(ctx sdk.Context, path []string, _ abci.RequestQuery) ([]byte, error) {
-		switch path[0] {
-		case types.QueryParameters:
-			return queryParams(ctx, k, legacyQuerierCdc)
+// func NewQuerier(k Keeper, legacyQuerierCdc *codec.LegacyAmino) sdk.Querier {
+// 	return func(ctx sdk.Context, path []string, _ abci.RequestQuery) ([]byte, error) {
+// 		switch path[0] {
+// 		case types.QueryParameters:
+// 			return queryParams(ctx, k, legacyQuerierCdc)
 
-		case types.QueryInflation:
-			return queryInflation(ctx, k, legacyQuerierCdc)
+// 		case types.QueryInflation:
+// 			return queryInflation(ctx, k, legacyQuerierCdc)
 
-		case types.QueryAnnualProvisions:
-			return queryAnnualProvisions(ctx, k, legacyQuerierCdc)
+// 		case types.QueryAnnualProvisions:
+// 			return queryAnnualProvisions(ctx, k, legacyQuerierCdc)
 
-		default:
-			return nil, sdkerrors.Wrapf(sdkerrors.ErrUnknownRequest, "unknown query path: %s", path[0])
-		}
-	}
-}
+// 		default:
+// 			return nil, sdkerrors.Wrapf(sdkerrors.ErrUnknownRequest, "unknown query path: %s", path[0])
+// 		}
+// 	}
+// }
 
 func queryParams(ctx sdk.Context, k Keeper, legacyQuerierCdc *codec.LegacyAmino) ([]byte, error) {
 	params := k.GetParams(ctx)
