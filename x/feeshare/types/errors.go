@@ -1,7 +1,7 @@
 package types
 
 import (
-	sdkerrrors "github.com/cosmos/cosmos-sdk/types/errors"
+	sdkerrrors "cosmossdk.io/errors"
 )
 
 // errors

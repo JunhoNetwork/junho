@@ -1,11 +1,5 @@
 package keeper
 
-import (
-	"github.com/cosmos/cosmos-sdk/codec"
-	sdk "github.com/cosmos/cosmos-sdk/types"
-	sdkerrors "github.com/cosmos/cosmos-sdk/types/errors"
-)
-
 // NewQuerier returns a minting Querier handler.
 // func NewQuerier(k Keeper, legacyQuerierCdc *codec.LegacyAmino) sdk.Querier {
 // 	return func(ctx sdk.Context, path []string, _ abci.RequestQuery) ([]byte, error) {
@@ -25,35 +19,35 @@ import (
 // 	}
 // }
 
-func queryParams(ctx sdk.Context, k Keeper, legacyQuerierCdc *codec.LegacyAmino) ([]byte, error) {
-	params := k.GetParams(ctx)
+// func queryParams(ctx sdk.Context, k Keeper, legacyQuerierCdc *codec.LegacyAmino) ([]byte, error) {
+// 	params := k.GetParams(ctx)
 
-	res, err := codec.MarshalJSONIndent(legacyQuerierCdc, params)
-	if err != nil {
-		return nil, sdkerrors.Wrap(sdkerrors.ErrJSONMarshal, err.Error())
-	}
+// 	res, err := codec.MarshalJSONIndent(legacyQuerierCdc, params)
+// 	if err != nil {
+// 		return nil, sdkerrors.Wrap(sdkerrors.ErrJSONMarshal, err.Error())
+// 	}
 
-	return res, nil
-}
+// 	return res, nil
+// }
 
-func queryInflation(ctx sdk.Context, k Keeper, legacyQuerierCdc *codec.LegacyAmino) ([]byte, error) {
-	minter := k.GetMinter(ctx)
+// func queryInflation(ctx sdk.Context, k Keeper, legacyQuerierCdc *codec.LegacyAmino) ([]byte, error) {
+// 	minter := k.GetMinter(ctx)
 
-	res, err := codec.MarshalJSONIndent(legacyQuerierCdc, minter.Inflation)
-	if err != nil {
-		return nil, sdkerrors.Wrap(sdkerrors.ErrJSONMarshal, err.Error())
-	}
+// 	res, err := codec.MarshalJSONIndent(legacyQuerierCdc, minter.Inflation)
+// 	if err != nil {
+// 		return nil, sdkerrors.Wrap(sdkerrors.ErrJSONMarshal, err.Error())
+// 	}
 
-	return res, nil
-}
+// 	return res, nil
+// }
 
-func queryAnnualProvisions(ctx sdk.Context, k Keeper, legacyQuerierCdc *codec.LegacyAmino) ([]byte, error) {
-	minter := k.GetMinter(ctx)
+// func queryAnnualProvisions(ctx sdk.Context, k Keeper, legacyQuerierCdc *codec.LegacyAmino) ([]byte, error) {
+// 	minter := k.GetMinter(ctx)
 
-	res, err := codec.MarshalJSONIndent(legacyQuerierCdc, minter.AnnualProvisions)
-	if err != nil {
-		return nil, sdkerrors.Wrap(sdkerrors.ErrJSONMarshal, err.Error())
-	}
+// 	res, err := codec.MarshalJSONIndent(legacyQuerierCdc, minter.AnnualProvisions)
+// 	if err != nil {
+// 		return nil, sdkerrors.Wrap(sdkerrors.ErrJSONMarshal, err.Error())
+// 	}
 
-	return res, nil
-}
+// 	return res, nil
+// }
