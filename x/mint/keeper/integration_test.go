@@ -3,10 +3,10 @@ package keeper_test
 import (
 	"encoding/json"
 
+	dbm "github.com/cometbft/cometbft-db"
 	abci "github.com/cometbft/cometbft/abci/types"
 	"github.com/cometbft/cometbft/libs/log"
 	tmproto "github.com/cometbft/cometbft/proto/tendermint/types"
-	dbm "github.com/tendermint/tm-db"
 
 	junoapp "github.com/JunhoNetwork/junho/app"
 

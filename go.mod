@@ -46,7 +46,6 @@ require (
 	github.com/cosmos/interchain-accounts v0.5.1
 	github.com/strangelove-ventures/async-icq/v7 v7.0.0-20230413165143-a3b65ccdc897
 	github.com/strangelove-ventures/packet-forward-middleware/v7 v7.0.0-20230412224111-136e94e98861
-	github.com/tendermint/tm-db v0.6.6
 )
 
 require (
@@ -197,4 +196,8 @@ replace (
 	// Fix upstream GHSA-h395-qcrw-5vmq vulnerability.
 	// TODO Remove it: https://github.com/cosmos/cosmos-sdk/issues/10409
 	github.com/gin-gonic/gin => github.com/gin-gonic/gin v1.8.1
+
+	// Upgrading Cosmos SDK v0.47.x
+	github.com/tendermint/tendermint => github.com/cometbft/cometbft v0.37.1
+	github.com/tendermint/tm-db => github.com/cometbft/cometbft-db v0.7.0
 )
