@@ -9,9 +9,9 @@ import (
 	dbm "github.com/tendermint/tm-db"
 
 	junoapp "github.com/JunhoNetwork/junho/app"
-	"github.com/cosmos/cosmos-sdk/simapp"
 
 	"github.com/JunhoNetwork/junho/x/mint/types"
+	simtestutil "github.com/cosmos/cosmos-sdk/testutil/sims"
 	sdk "github.com/cosmos/cosmos-sdk/types"
 )
 
@@ -39,7 +39,7 @@ func setup(isCheckTx bool) *junoapp.App {
 		app.InitChain(
 			abci.RequestInitChain{
 				Validators:      []abci.ValidatorUpdate{},
-				ConsensusParams: simapp.DefaultConsensusParams,
+				ConsensusParams: simtestutil.DefaultConsensusParams,
 				AppStateBytes:   stateBytes,
 			},
 		)
@@ -57,12 +57,12 @@ func genApp(withGenesis bool, invCheckPeriod uint) (*junoapp.App, junoapp.Genesi
 		nil,
 		true,
 		map[int64]bool{},
-		simapp.DefaultNodeHome,
+		simtestutil.DefaultNodeHome,
 		invCheckPeriod,
 		encCdc,
 		junoapp.GetEnabledProposals(),
-		simapp.EmptyAppOptions{},
-		junoapp.GetWasmOpts(simapp.EmptyAppOptions{}),
+		simtestutil.EmptyAppOptions{},
+		junoapp.GetWasmOpts(simtestutil.EmptyAppOptions{}),
 	)
 
 	if withGenesis {

@@ -13,8 +13,8 @@ import (
 	govtypes "github.com/cosmos/cosmos-sdk/x/gov/types"
 
 	"github.com/cosmos/cosmos-sdk/codec"
+	simtestutil "github.com/cosmos/cosmos-sdk/testutil/sims"
 	"github.com/cosmos/cosmos-sdk/types/module"
-	"github.com/cosmos/ibc-go/v7/testing/simapp"
 
 	"github.com/CosmWasm/wasmd/x/wasm"
 
@@ -362,9 +362,9 @@ func TestAppStateDeterminism(t *testing.T) {
 // If a file is not given for the genesis or the sim params, it creates a randomized one.
 func AppStateFn(codec codec.Codec, manager *module.SimulationManager) simtypes.AppStateFn {
 	// quick hack to setup app state genesis with our app modules
-	simapp.ModuleBasics = ModuleBasics
-	if simapp.FlagGenesisTimeValue == 0 { // always set to have a block time
-		simapp.FlagGenesisTimeValue = time.Now().Unix()
+	simtestutil.ModuleBasics = ModuleBasics
+	if simtestutil.FlagGenesisTimeValue == 0 { // always set to have a block time
+		simtestutil.FlagGenesisTimeValue = time.Now().Unix()
 	}
-	return simapp.AppStateFn(codec, manager)
+	return simtestutil.AppStateFn(codec, manager)
 }
