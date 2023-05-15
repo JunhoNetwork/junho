@@ -11,7 +11,7 @@ import (
 	"github.com/JunhoNetwork/junho/app"
 	"github.com/JunhoNetwork/junho/x/feeshare"
 	"github.com/JunhoNetwork/junho/x/feeshare/types"
-	tmproto "github.com/tendermint/tendermint/proto/tendermint/types"
+	tmproto "github.com/cometbft/cometbft/proto/tendermint/types"
 )
 
 type GenesisTestSuite struct {
