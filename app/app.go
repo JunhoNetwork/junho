@@ -12,6 +12,8 @@ import (
 	reflectionv1 "cosmossdk.io/api/cosmos/reflection/v1"
 
 	feesharekeeper "github.com/JunhoNetwork/junho/x/feeshare/keeper"
+	feesharetypes "github.com/JunhoNetwork/junho/x/feeshare/types"
+
 	"github.com/JunhoNetwork/junho/x/mint"
 	mintkeeper "github.com/JunhoNetwork/junho/x/mint/keeper"
 	"github.com/cosmos/cosmos-sdk/baseapp"
@@ -752,6 +754,15 @@ func NewApp(
 		availableCapabilities,
 		authtypes.NewModuleAddress(govtypes.ModuleName).String(),
 		wasmOpts...,
+	)
+
+	app.FeeShareKeeper = feesharekeeper.NewKeeper(
+		keys[feesharetypes.StoreKey],
+		appCodec,
+		app.GetSubspace(feesharetypes.ModuleName),
+		app.BankKeeper,
+		app.WasmKeeper,
+		authtypes.FeeCollectorName,
 	)
 
 	// The gov proposal types can be individually enabled
