@@ -51,15 +51,11 @@ func setup(isCheckTx bool) *junoapp.App {
 func genApp(withGenesis bool, invCheckPeriod uint) (*junoapp.App, junoapp.GenesisState) {
 	db := dbm.NewMemDB()
 	encCdc := junoapp.MakeEncodingConfig()
-	app := junoapp.New(
+	app := junoapp.NewApp(
 		log.NewNopLogger(),
 		db,
 		nil,
 		true,
-		map[int64]bool{},
-		simtestutil.DefaultNodeHome,
-		invCheckPeriod,
-		encCdc,
 		junoapp.GetEnabledProposals(),
 		simtestutil.EmptyAppOptions{},
 		junoapp.GetWasmOpts(simtestutil.EmptyAppOptions{}),

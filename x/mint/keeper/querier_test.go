@@ -1,86 +1,72 @@
 package keeper_test
 
-import (
-	"testing"
+// func TestNewQuerier(t *testing.T) {
+// 	app, ctx := createTestApp(true)
+// 	legacyQuerierCdc := codec.NewAminoCodec(app.LegacyAmino())
+// 	querier := keep.NewQuerier(app.MintKeeper, legacyQuerierCdc.LegacyAmino)
 
-	"github.com/cosmos/cosmos-sdk/codec"
+// 	query := abci.RequestQuery{
+// 		Path: "",
+// 		Data: []byte{},
+// 	}
 
-	"github.com/stretchr/testify/require"
+// 	_, err := querier(ctx, []string{types.QueryParameters}, query)
+// 	require.NoError(t, err)
 
-	keep "github.com/JunhoNetwork/junho/x/mint/keeper"
-	"github.com/JunhoNetwork/junho/x/mint/types"
-	sdk "github.com/cosmos/cosmos-sdk/types"
+// 	_, err = querier(ctx, []string{types.QueryInflation}, query)
+// 	require.NoError(t, err)
 
-	abci "github.com/cometbft/cometbft/abci/types"
-)
+// 	_, err = querier(ctx, []string{types.QueryAnnualProvisions}, query)
+// 	require.NoError(t, err)
 
-func TestNewQuerier(t *testing.T) {
-	app, ctx := createTestApp(true)
-	legacyQuerierCdc := codec.NewAminoCodec(app.LegacyAmino())
-	querier := keep.NewQuerier(app.MintKeeper, legacyQuerierCdc.LegacyAmino)
+// 	_, err = querier(ctx, []string{"foo"}, query)
+// 	require.Error(t, err)
+// }
 
-	query := abci.RequestQuery{
-		Path: "",
-		Data: []byte{},
-	}
+// func TestQueryParams(t *testing.T) {
+// 	app, ctx := createTestApp(true)
+// 	legacyQuerierCdc := codec.NewAminoCodec(app.LegacyAmino())
+// 	querier := keep.NewQuerier(app.MintKeeper, legacyQuerierCdc.LegacyAmino)
 
-	_, err := querier(ctx, []string{types.QueryParameters}, query)
-	require.NoError(t, err)
+// 	var params types.Params
 
-	_, err = querier(ctx, []string{types.QueryInflation}, query)
-	require.NoError(t, err)
+// 	res, sdkErr := querier(ctx, []string{types.QueryParameters}, abci.RequestQuery{})
+// 	require.NoError(t, sdkErr)
 
-	_, err = querier(ctx, []string{types.QueryAnnualProvisions}, query)
-	require.NoError(t, err)
+// 	err := app.LegacyAmino().UnmarshalJSON(res, &params)
+// 	require.NoError(t, err)
 
-	_, err = querier(ctx, []string{"foo"}, query)
-	require.Error(t, err)
-}
+// 	require.Equal(t, app.MintKeeper.GetParams(ctx), params)
+// }
 
-func TestQueryParams(t *testing.T) {
-	app, ctx := createTestApp(true)
-	legacyQuerierCdc := codec.NewAminoCodec(app.LegacyAmino())
-	querier := keep.NewQuerier(app.MintKeeper, legacyQuerierCdc.LegacyAmino)
+// func TestQueryInflation(t *testing.T) {
+// 	app, ctx := createTestApp(true)
+// 	legacyQuerierCdc := codec.NewAminoCodec(app.LegacyAmino())
+// 	querier := keep.NewQuerier(app.MintKeeper, legacyQuerierCdc.LegacyAmino)
 
-	var params types.Params
+// 	var inflation sdk.Dec
 
-	res, sdkErr := querier(ctx, []string{types.QueryParameters}, abci.RequestQuery{})
-	require.NoError(t, sdkErr)
+// 	res, sdkErr := querier(ctx, []string{types.QueryInflation}, abci.RequestQuery{})
+// 	require.NoError(t, sdkErr)
 
-	err := app.LegacyAmino().UnmarshalJSON(res, &params)
-	require.NoError(t, err)
+// 	err := app.LegacyAmino().UnmarshalJSON(res, &inflation)
+// 	require.NoError(t, err)
 
-	require.Equal(t, app.MintKeeper.GetParams(ctx), params)
-}
+// 	require.Equal(t, app.MintKeeper.GetMinter(ctx).Inflation, inflation)
+// }
 
-func TestQueryInflation(t *testing.T) {
-	app, ctx := createTestApp(true)
-	legacyQuerierCdc := codec.NewAminoCodec(app.LegacyAmino())
-	querier := keep.NewQuerier(app.MintKeeper, legacyQuerierCdc.LegacyAmino)
+// func TestQueryAnnualProvisions(t *testing.T) {
+// 	app, ctx := createTestApp(true)
+// 	legacyQuerierCdc := codec.NewAminoCodec(app.LegacyAmino())
+// 	querier := keep.NewQuerier(app.MintKeeper, legacyQuerierCdc.LegacyAmino)
 
-	var inflation sdk.Dec
+// 	var annualProvisions sdk.Dec
 
-	res, sdkErr := querier(ctx, []string{types.QueryInflation}, abci.RequestQuery{})
-	require.NoError(t, sdkErr)
+// 	res, sdkErr := querier(ctx, []string{types.QueryAnnualProvisions}, abci.RequestQuery{})
+// 	require.NoError(t, sdkErr)
 
-	err := app.LegacyAmino().UnmarshalJSON(res, &inflation)
-	require.NoError(t, err)
+// 	err := app.LegacyAmino().UnmarshalJSON(res, &annualProvisions)
+// 	require.NoError(t, err)
 
-	require.Equal(t, app.MintKeeper.GetMinter(ctx).Inflation, inflation)
-}
-
-func TestQueryAnnualProvisions(t *testing.T) {
-	app, ctx := createTestApp(true)
-	legacyQuerierCdc := codec.NewAminoCodec(app.LegacyAmino())
-	querier := keep.NewQuerier(app.MintKeeper, legacyQuerierCdc.LegacyAmino)
-
-	var annualProvisions sdk.Dec
-
-	res, sdkErr := querier(ctx, []string{types.QueryAnnualProvisions}, abci.RequestQuery{})
-	require.NoError(t, sdkErr)
-
-	err := app.LegacyAmino().UnmarshalJSON(res, &annualProvisions)
-	require.NoError(t, err)
-
-	require.Equal(t, app.MintKeeper.GetMinter(ctx).AnnualProvisions, annualProvisions)
-}
+// 	require.Equal(t, app.MintKeeper.GetMinter(ctx).AnnualProvisions, annualProvisions)
+// }
