@@ -42,7 +42,8 @@ type IntegrationTestSuite struct {
 
 func (s *IntegrationTestSuite) SetupTest() {
 	isCheckTx := false
-	s.app = app.Setup(s.T(), isCheckTx, 1)
+	// s.app = app.Setup(s.T(), isCheckTx, 1)
+	s.app = app.Setup(s.T())
 
 	s.ctx = s.app.BaseApp.NewContext(isCheckTx, tmproto.Header{
 		ChainID: fmt.Sprintf("test-chain-%s", tmrand.Str(4)),
