@@ -361,6 +361,5 @@ func TestAppStateDeterminism(t *testing.T) {
 // It panics if the user provides files for both of them.
 // If a file is not given for the genesis or the sim params, it creates a randomized one.
 func AppStateFn(codec codec.Codec, manager *module.SimulationManager) simtypes.AppStateFn {
-	// FIXME:
 	return simtestutil.AppStateFn(codec, manager, simapp.NewDefaultGenesisState(codec))
 }
