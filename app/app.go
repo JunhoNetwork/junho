@@ -61,7 +61,6 @@ import (
 	"github.com/cosmos/cosmos-sdk/x/crisis"
 	crisiskeeper "github.com/cosmos/cosmos-sdk/x/crisis/keeper"
 	crisistypes "github.com/cosmos/cosmos-sdk/x/crisis/types"
-	"github.com/prometheus/client_golang/prometheus"
 
 	distr "github.com/cosmos/cosmos-sdk/x/distribution"
 	distrkeeper "github.com/cosmos/cosmos-sdk/x/distribution/keeper"
@@ -198,18 +197,6 @@ func GetEnabledProposals() []wasm.ProposalType {
 	return proposals
 }
 
-func GetWasmOpts(appOpts servertypes.AppOptions) []wasm.Option {
-	var wasmOpts []wasm.Option
-	if cast.ToBool(appOpts.Get("telemetry.enabled")) {
-		wasmOpts = append(wasmOpts, wasmkeeper.WithVMCacheMetrics(prometheus.DefaultRegisterer))
-	}
-
-	// FIXME:
-	// wasmOpts = append(wasmOpts, wasmkeeper.WithGasRegister(NewJunoWasmGasRegister()))
-
-	return wasmOpts
-}
-
 // These constants are derived from the above variables.
 // These are the ones we will want to use in the code, based on
 // any overrides above
@@ -315,11 +302,9 @@ type App struct {
 	memKeys map[string]*storetypes.MemoryStoreKey
 
 	// keepers
-	AccountKeeper authkeeper.AccountKeeper
-	AuthzKeeper   authzkeeper.Keeper
-	BankKeeper    bankkeeper.BaseKeeper
-
-	// FeeShareKeeper feesharekeeper.Keeper
+	AccountKeeper  authkeeper.AccountKeeper
+	AuthzKeeper    authzkeeper.Keeper
+	BankKeeper     bankkeeper.BaseKeeper
 	ContractKeeper *wasmkeeper.PermissionedKeeper
 
 	CapabilityKeeper      *capabilitykeeper.Keeper
@@ -760,15 +745,6 @@ func NewApp(
 		wasmOpts...,
 	)
 
-	// app.FeeShareKeeper = feesharekeeper.NewKeeper(
-	// 	keys[feesharetypes.StoreKey],
-	// 	appCodec,
-	// 	app.GetSubspace(feesharetypes.ModuleName),
-	// 	app.BankKeeper,
-	// 	app.WasmKeeper,
-	// 	authtypes.FeeCollectorName,
-	// )
-
 	// The gov proposal types can be individually enabled
 	if len(enabledProposals) != 0 {
 		govRouter.AddRoute(wasm.RouterKey, wasm.NewWasmProposalHandler(app.WasmKeeper, enabledProposals))
@@ -850,7 +826,6 @@ func NewApp(
 		feegrantmodule.NewAppModule(appCodec, app.AccountKeeper, app.BankKeeper, app.FeeGrantKeeper, app.interfaceRegistry),
 		gov.NewAppModule(appCodec, &app.GovKeeper, app.AccountKeeper, app.BankKeeper, app.GetSubspace(govtypes.ModuleName)),
 		mint.NewAppModule(appCodec, app.MintKeeper, app.AccountKeeper, nil, app.GetSubspace(minttypes.ModuleName)),
-		// mint.NewAppModule(appCodec, app.MintKeeper, app.AccountKeeper),
 		slashing.NewAppModule(appCodec, app.SlashingKeeper, app.AccountKeeper, app.BankKeeper, app.StakingKeeper, app.GetSubspace(slashingtypes.ModuleName)),
 		distr.NewAppModule(appCodec, app.DistrKeeper, app.AccountKeeper, app.BankKeeper, app.StakingKeeper, app.GetSubspace(distrtypes.ModuleName)),
 		staking.NewAppModule(appCodec, app.StakingKeeper, app.AccountKeeper, app.BankKeeper, app.GetSubspace(stakingtypes.ModuleName)),
@@ -1254,7 +1229,6 @@ func initParamsKeeper(appCodec codec.BinaryCodec, legacyAmino *codec.LegacyAmino
 	paramsKeeper.Subspace(icacontrollertypes.SubModuleName)
 	paramsKeeper.Subspace(routertypes.ModuleName)
 	paramsKeeper.Subspace(wasm.ModuleName)
-	// paramsKeeper.Subspace(feesharetypes.ModuleName)
 
 	return paramsKeeper
 }
