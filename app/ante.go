@@ -17,9 +17,8 @@ import (
 
 	wasmTypes "github.com/CosmWasm/wasmd/x/wasm/types"
 	decorators "github.com/JunhoNetwork/junho/app/decorators"
-
-	feeshareante "github.com/JunhoNetwork/junho/x/feeshare/ante"
-	feesharekeeper "github.com/JunhoNetwork/junho/x/feeshare/keeper"
+	// feeshareante "github.com/JunhoNetwork/junho/x/feeshare/ante"
+	// feesharekeeper "github.com/JunhoNetwork/junho/x/feeshare/keeper"
 )
 
 // HandlerOptions extends the SDK's AnteHandler options by requiring the IBC
@@ -27,10 +26,10 @@ import (
 type HandlerOptions struct {
 	ante.HandlerOptions
 
-	GovKeeper         *govkeeper.Keeper
-	IBCKeeper         *ibckeeper.Keeper
-	FeeShareKeeper    feesharekeeper.Keeper
-	BankKeeperFork    feeshareante.BankKeeper
+	GovKeeper *govkeeper.Keeper
+	IBCKeeper *ibckeeper.Keeper
+	// FeeShareKeeper    feesharekeeper.Keeper
+	// BankKeeperFork    feeshareante.BankKeeper
 	WasmConfig        *wasmTypes.WasmConfig
 	TXCounterStoreKey storetypes.StoreKey
 	Cdc               codec.BinaryCodec
@@ -80,7 +79,7 @@ func NewAnteHandler(options HandlerOptions) (sdk.AnteHandler, error) {
 		ante.NewConsumeGasForTxSizeDecorator(options.AccountKeeper),
 		// gaiafeeante.NewFeeDecorator(options.BypassMinFeeMsgTypes, options.GlobalFeeSubspace, options.StakingSubspace, maxBypassMinFeeMsgGasUsage),
 		ante.NewDeductFeeDecorator(options.AccountKeeper, options.BankKeeper, options.FeegrantKeeper, options.TxFeeChecker),
-		feeshareante.NewFeeSharePayoutDecorator(options.BankKeeperFork, options.FeeShareKeeper),
+		// feeshareante.NewFeeSharePayoutDecorator(options.BankKeeperFork, options.FeeShareKeeper),
 		// SetPubKeyDecorator must be called before all signature verification decorators
 		ante.NewSetPubKeyDecorator(options.AccountKeeper),
 		ante.NewValidateSigCountDecorator(options.AccountKeeper),
